@@ -1,0 +1,80 @@
+﻿@model userDemo1.Context.User
+
+@{
+    ViewBag.Title = "Permissions";
+}
+
+<h2>User's Permissions'</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <label>User Name: @Model.FirstName &nbsp; @Model.LastName  </label>
+        </div>
+        <div class="col-sm-6">
+            <label>User Email: @Model.Email </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <label>Phone Number: @Html.DisplayFor(modelItem => modelItem.Phone)</label>
+        </div>
+        <div class="col-sm-6">
+            <label>Status: @Html.DisplayFor(modelItem => modelItem.Status)</label>
+        </div>
+    </div>
+
+    <hr /><hr />
+    <p>
+        @Html.ActionLink("Create New", "Create", new { userId = Model.UserId })  |
+        @Html.ActionLink("Back to User List", "Index","Users")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissions.First().ModuleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissions.First().ViewPermission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissions.First().AddPermission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissions.First().EditPermission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPermissions.First().DeletePermission)
+            </th>
+        </tr>
+
+        @if (Model.UserPermissions.Count > 0)
+        {
+            foreach (var item in Model.UserPermissions)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ModuleName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ViewPermission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AddPermission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EditPermission)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DeletePermission)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Create", new { item.Id, item.ModuleName, item.ViewPermission, item.AddPermission, item.EditPermission, item.DeletePermission, item.UserId, item.User })"><i class="glyphicon glyphicon-pencil"></i></a>  |
+                        <a href="@Url.Action("Delete", new { item.Id })"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+</div>

@@ -1,0 +1,18 @@
+﻿@{ 
+    userDemo1.Context.User UserLoggedIn = null;
+
+    if (Session["LoggedInUser"] != null)
+    {
+        UserLoggedIn = (userDemo1.Context.User)Session["LoggedInUser"];
+    }
+}
+<div>
+    @if (UserLoggedIn == null)
+    {
+        <p style="margin-left: 35px; margin-top: 16px; color: #9d9d9d;">Anonymous, @Html.ActionLink("Login", "Index", "Home")</p>
+    }
+    else
+    {
+        <p style="margin-left: 35px; margin-top: 16px; color: #9d9d9d;">Welcome @UserLoggedIn.FirstName @UserLoggedIn.LastName, @Html.ActionLink("Logout", "Logout", "Home")</p>
+    }
+</div>
